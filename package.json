@@ -6,7 +6,7 @@
     "scripts": {
         "build": "webpack --mode=development",
         "watch": "webpack-dev-server --mode=development --config=webpack.config.js",
-        "test": "jest --watch *.js"
+        "test": "jest --watch ./src/*.js"
     },
     "repository": {
         "type": "git",
