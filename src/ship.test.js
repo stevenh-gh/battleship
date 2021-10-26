@@ -19,13 +19,12 @@ describe("hit method", () => {
 })
 
 describe("isSunk() method", () => {
-    it("should set property \"sunk\" by calculating the length and positions hit", () => {
+    it("should return bool by calculating the length and positions hit", () => {
         ship.hit([1, 1]);
         ship.hit([1, 2]);
         ship.hit([1, 3]);
         ship.hit([1, 4]);
         ship.hit([1, 5]);
-        ship.isSunk();
-        expect(ship.sunk).toBeTruthy();
+        expect(ship.isSunk()).toBeTruthy();
     })
 })
