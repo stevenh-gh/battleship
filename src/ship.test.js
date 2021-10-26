@@ -14,7 +14,7 @@ describe("constructor", () => {
 describe("hit method", () => {
     it("should take a number and mark that position as hit", () => {
         ship.hit([4, 5]);
-        expect(ship.hits.get("4-5")).toEqual([4, 5]);
+        expect(ship.hits[ship.hits.length - 1]).toMatchObject([4, 5]);
     })
 })
 

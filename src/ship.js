@@ -1,12 +1,12 @@
 export default class Ship {
     constructor(length) {
         this.length = length;
-        this.hits = new Map();
+        this.hits = [];
     }
-    hit(pos) {
-        this.hits.set(`${pos[0]}-${pos[1]}`, pos);
+    hit(coord) {
+        this.hits.push(coord);
     }
     isSunk() {
-        return this.hits.size === this.length;
+        return this.hits.length === this.length;
     }
 }
