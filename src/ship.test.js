@@ -1,5 +1,11 @@
 import Ship from "./ship";
 
+let ship;
+beforeEach(() => {
+    let length = 3;
+    ship = new Ship(3);
+})
+
 describe("ship", () => {
     it("should have a length", () => {
         // arrange
@@ -20,10 +26,9 @@ describe("ship", () => {
         expect(ship.hits).toEqual([]);
     })
     describe("hit function", () => {
+
         it("should take a position and add it to the hits list", () => {
             // arrange
-            const length = 3;
-            const ship = new Ship(length);
             const pos = [3, 4];
             const expected = [
                 [3, 4]
@@ -37,8 +42,6 @@ describe("ship", () => {
     describe("isSunk function", () => {
         it("should return false when hits is empty", () => {
             // arrange
-            const length = 3;
-            const ship = new Ship(length);
             // act
             const result = ship.isSunk();
             // assert
@@ -46,8 +49,6 @@ describe("ship", () => {
         })
         it("should return false when hits is not equal to length of ship", () => {
             // arrange
-            const length = 3;
-            const ship = new Ship(length);
             ship.hit([4, 3]);
             ship.hit([4, 4]);
             // act
@@ -57,8 +58,6 @@ describe("ship", () => {
         })
         it("should return true when hits is equal to length of ship", () => {
             // arrange
-            const length = 3;
-            const ship = new Ship(length);
             ship.hit([4, 3]);
             ship.hit([4, 4]);
             ship.hit([4, 5]);
