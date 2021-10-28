@@ -21,6 +21,7 @@
     "homepage": "https://github.com/stevenh-gh/battleship#readme",
     "devDependencies": {
         "@babel/preset-env": "^7.15.8",
+        "@types/jest": "^27.0.2",
         "css-loader": "^6.4.0",
         "jest": "^27.3.1",
         "postcss": "^8.3.11",
