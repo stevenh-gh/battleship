@@ -1,6 +1,7 @@
 export default class Gameboard {
     constructor() {
         this.ships = [];
+        this.missed = [];
     }
     placeShip(ship, pos, verticality = 0) {
         let coord = [pos];
@@ -9,6 +10,13 @@ export default class Gameboard {
             ship,
             coord
         })
+    }
+    receiveAttack(attack) {
+        if (this.ships[0].coord.some(ele => (ele[0] === attack[0]) && (ele[1] === attack[1]))) {
+            this.ships[0].ship.hit(attack);
+        } else {
+            this.missed.push(attack);
+        }
     }
 }
 
