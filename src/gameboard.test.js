@@ -96,3 +96,37 @@ describe("placeShip", () => {
         }));
     })
 })
+describe("receiveAttack", () => {
+    it("should receive coordinates and check if it matches a ship's coordinates, if miss, place it into missed list", () => {
+        // arrange
+        const length = 3;
+        const pos = [2, 2];
+        const attack = [5, 6];
+        const gameboard = new Gameboard();
+        const ship = new Ship(length);
+        const expected = [
+            [5, 6]
+        ]
+        gameboard.placeShip(ship, pos);
+        // act
+        gameboard.receiveAttack(attack);
+        // assert
+        expect(gameboard.missed).toEqual(expect.arrayContaining(expected));
+    })
+    it("should receive coordinates and check if it matches a ship's coordinates, if hit, place it into ship's hit list", () => {
+        // arrange
+        const length = 3;
+        const pos = [2, 2];
+        const attack = [2, 4];
+        const gameboard = new Gameboard();
+        const ship = new Ship(length);
+        const expected = [
+            [2, 4]
+        ]
+        gameboard.placeShip(ship, pos);
+        // act
+        gameboard.receiveAttack(attack);
+        // assert
+        expect(ship.hits).toEqual(expect.arrayContaining(expected));
+    })
+})
