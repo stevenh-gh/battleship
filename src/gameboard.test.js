@@ -95,6 +95,17 @@ describe("placeShip", () => {
             ])
         }));
     })
+    it("should give an error when a ship is placed onto an existing ship's coords", () => {
+        // arrange
+        const gameboard = new Gameboard();
+        const length = 3;
+        const ship = new Ship(length);
+        const coord = [4, 3];
+        // act
+        gameboard.placeShip(ship, coord, 1); // [4,3][5,3][6,3]
+        // assert
+        expect(() => gameboard.placeShip(new Ship(4), [5, 1])).toThrow(); // [5,1][5,2][5,3][5,4]
+    })
 })
 describe("receiveAttack", () => {
     it("should receive coordinates and check if it matches a ship's coordinates, if miss, place it into missed list", () => {
@@ -134,14 +145,14 @@ describe("receiveAttack", () => {
         const attack = [7, 1];
         const gameboard = new Gameboard();
         const ship1 = new Ship(2);
-        const ship2 = new Ship(3);
+        const ship2 = new Ship(2);
         const ship3 = new Ship(4);
         const expected = [
             [7, 1]
         ]
-        gameboard.placeShip(ship1, [5, 2]);
-        gameboard.placeShip(ship2, [3, 3], 1);
-        gameboard.placeShip(ship3, [5, 1], 1);
+        gameboard.placeShip(ship1, [5, 2]); // [52][53]
+        gameboard.placeShip(ship2, [3, 3], 1); // [33][43][53]
+        gameboard.placeShip(ship3, [5, 1], 1); // [51][61][71][81]
         // act
         gameboard.receiveAttack(attack);
         // assert
@@ -152,14 +163,14 @@ describe("receiveAttack", () => {
         const attack = [3, 4];
         const gameboard = new Gameboard();
         const ship1 = new Ship(2);
-        const ship2 = new Ship(3);
+        const ship2 = new Ship(2);
         const ship3 = new Ship(4);
         const expected = [
             [3, 4]
         ]
-        gameboard.placeShip(ship1, [5, 2]);
-        gameboard.placeShip(ship2, [3, 3], 1);
-        gameboard.placeShip(ship3, [5, 1], 1);
+        gameboard.placeShip(ship1, [5, 2]); // [52][53]
+        gameboard.placeShip(ship2, [3, 3], 1); // [33][43][53]
+        gameboard.placeShip(ship3, [5, 1], 1); // [51][61][71][81]
         // act
         gameboard.receiveAttack(attack);
         // assert
@@ -170,14 +181,14 @@ describe("receiveAttack", () => {
         const attack = [4, 3];
         const gameboard = new Gameboard();
         const ship1 = new Ship(2);
-        const ship2 = new Ship(3);
+        const ship2 = new Ship(2);
         const ship3 = new Ship(4);
         const expected = [
             [4, 3]
         ]
-        gameboard.placeShip(ship1, [5, 2]);
-        gameboard.placeShip(ship2, [3, 3], 1);
-        gameboard.placeShip(ship3, [5, 1], 1);
+        gameboard.placeShip(ship1, [5, 2]); //[52][53]
+        gameboard.placeShip(ship2, [3, 3], 1); //[33][43][53]
+        gameboard.placeShip(ship3, [5, 1], 1); //[51][61][71][81]
         // act
         gameboard.receiveAttack(attack);
         // assert
