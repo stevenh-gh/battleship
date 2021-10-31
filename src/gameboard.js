@@ -6,11 +6,23 @@ export default class Gameboard {
     placeShip(ship, pos, verticality = 0) {
         let coord = [pos];
         setCoords(ship, coord, verticality);
+        this.isSpotTaken(coord);
         this.ships.push({
             ship,
             coord
         })
     }
+    isSpotTaken(coord) {
+        coord.forEach(c => {
+            this.ships.forEach(shipinfo => {
+                let s_coord = shipinfo.coord;
+                if (s_coord.some(ele => (ele[0] === c[0]) && (ele[1] === c[1]))) {
+                    throw `this spot is taken: ${c}`;
+                }
+            });
+        });
+    }
+
     receiveAttack(attack) {
         let missed = true;
         this.ships.forEach(shipinfo => {
