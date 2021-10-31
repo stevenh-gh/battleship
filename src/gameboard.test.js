@@ -129,4 +129,58 @@ describe("receiveAttack", () => {
         // assert
         expect(ship.hits).toEqual(expect.arrayContaining(expected));
     })
+    it("should work with multiple ships", () => {
+        // arrange
+        const attack = [7, 1];
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(2);
+        const ship2 = new Ship(3);
+        const ship3 = new Ship(4);
+        const expected = [
+            [7, 1]
+        ]
+        gameboard.placeShip(ship1, [5, 2]);
+        gameboard.placeShip(ship2, [3, 3], 1);
+        gameboard.placeShip(ship3, [5, 1], 1);
+        // act
+        gameboard.receiveAttack(attack);
+        // assert
+        expect(ship3.hits).toEqual(expect.arrayContaining(expected));
+    })
+    it("should work with multiple ships", () => {
+        // arrange
+        const attack = [3, 4];
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(2);
+        const ship2 = new Ship(3);
+        const ship3 = new Ship(4);
+        const expected = [
+            [3, 4]
+        ]
+        gameboard.placeShip(ship1, [5, 2]);
+        gameboard.placeShip(ship2, [3, 3], 1);
+        gameboard.placeShip(ship3, [5, 1], 1);
+        // act
+        gameboard.receiveAttack(attack);
+        // assert
+        expect(gameboard.missed).toEqual(expect.arrayContaining(expected));
+    })
+    it("should work with multiple ships", () => {
+        // arrange
+        const attack = [4, 3];
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(2);
+        const ship2 = new Ship(3);
+        const ship3 = new Ship(4);
+        const expected = [
+            [4, 3]
+        ]
+        gameboard.placeShip(ship1, [5, 2]);
+        gameboard.placeShip(ship2, [3, 3], 1);
+        gameboard.placeShip(ship3, [5, 1], 1);
+        // act
+        gameboard.receiveAttack(attack);
+        // assert
+        expect(ship2.hits).toEqual(expect.arrayContaining(expected));
+    })
 })
