@@ -12,9 +12,16 @@ export default class Gameboard {
         })
     }
     receiveAttack(attack) {
-        if (this.ships[0].coord.some(ele => (ele[0] === attack[0]) && (ele[1] === attack[1]))) {
-            this.ships[0].ship.hit(attack);
-        } else {
+        let missed = true;
+        this.ships.forEach(shipinfo => {
+            let s = shipinfo.ship;
+            let s_coord = shipinfo.coord;
+            if (s_coord.some(ele => (ele[0] === attack[0]) && (ele[1] === attack[1]))) {
+                s.hit(attack)
+                missed = false;
+            }
+        })
+        if (missed) {
             this.missed.push(attack);
         }
     }
