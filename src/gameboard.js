@@ -37,6 +37,14 @@ export default class Gameboard {
             this.missed.push(attack);
         }
     }
+    isAllSunk() {
+        let sunk;
+        this.ships.forEach(shipinfo => {
+            let ship = shipinfo.ship;
+            sunk = sunk || ship.isSunk();
+        })
+        return sunk;
+    }
 }
 
 function setCoords(ship, coord, verticality) {
