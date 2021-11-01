@@ -195,3 +195,61 @@ describe("receiveAttack", () => {
         expect(ship2.hits).toEqual(expect.arrayContaining(expected));
     })
 })
+describe("isAllSunk", () => {
+    it("should return true if the only ship sinks", () => {
+        // arrange
+        let gameboard = new Gameboard();
+        let ship = new Ship(3);
+        gameboard.placeShip(ship, [2, 2]); //[22][23][24]
+        gameboard.receiveAttack([2, 2]);
+        gameboard.receiveAttack([2, 3]);
+        gameboard.receiveAttack([2, 4]);
+        // act
+        let sunk = gameboard.isAllSunk();
+        // assert
+        expect(sunk).toBeTruthy();
+    })
+    it("should return false if the only ship has not sunk", () => {
+        // arrange
+        let gameboard = new Gameboard();
+        let ship = new Ship(3);
+        gameboard.placeShip(ship, [2, 2]); //[22][23][24]
+        gameboard.receiveAttack([2, 2]);
+        gameboard.receiveAttack([2, 3]);
+        // act
+        let sunk = gameboard.isAllSunk();
+        // assert
+        expect(sunk).toBeFalsy();
+    })
+    it("should return true if the all ships has sunk", () => {
+        // arrange
+        let gameboard = new Gameboard();
+        let ship = new Ship(3);
+        let ship2 = new Ship(2);
+        gameboard.placeShip(ship, [2, 2]); //[22][23][24]
+        gameboard.receiveAttack([2, 2]);
+        gameboard.receiveAttack([2, 3]);
+        gameboard.placeShip(ship2, [5, 5], 1); //[55][65]
+        gameboard.receiveAttack([5, 5]);
+        gameboard.receiveAttack([6, 5]);
+        // act
+        let sunk = gameboard.isAllSunk();
+        // assert
+        expect(sunk).toBeTruthy();
+    })
+    it("should return false if the all ships has not been sunk", () => {
+        // arrange
+        let gameboard = new Gameboard();
+        let ship = new Ship(3);
+        let ship2 = new Ship(2);
+        gameboard.placeShip(ship, [2, 2]); //[22][23][24]
+        gameboard.receiveAttack([2, 2]);
+        gameboard.receiveAttack([2, 3]);
+        gameboard.placeShip(ship2, [5, 5], 1); //[55][65]
+        gameboard.receiveAttack([5, 5]);
+        // act
+        let sunk = gameboard.isAllSunk();
+        // assert
+        expect(sunk).toBeFalsy();
+    })
+})
