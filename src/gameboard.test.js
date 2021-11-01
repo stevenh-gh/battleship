@@ -221,7 +221,7 @@ describe("isAllSunk", () => {
         // assert
         expect(sunk).toBeFalsy();
     })
-    it("should return true if the all ships has sunk", () => {
+    it("should return true if all two ships has sunk", () => {
         // arrange
         let gameboard = new Gameboard();
         let ship = new Ship(3);
@@ -229,6 +229,7 @@ describe("isAllSunk", () => {
         gameboard.placeShip(ship, [2, 2]); //[22][23][24]
         gameboard.receiveAttack([2, 2]);
         gameboard.receiveAttack([2, 3]);
+        gameboard.receiveAttack([2, 4]);
         gameboard.placeShip(ship2, [5, 5], 1); //[55][65]
         gameboard.receiveAttack([5, 5]);
         gameboard.receiveAttack([6, 5]);
@@ -237,7 +238,7 @@ describe("isAllSunk", () => {
         // assert
         expect(sunk).toBeTruthy();
     })
-    it("should return false if the all ships has not been sunk", () => {
+    it("should return false if all two ships has not been sunk", () => {
         // arrange
         let gameboard = new Gameboard();
         let ship = new Ship(3);
@@ -251,5 +252,50 @@ describe("isAllSunk", () => {
         let sunk = gameboard.isAllSunk();
         // assert
         expect(sunk).toBeFalsy();
+    })
+    it("should return false if all three ships has not been sunk", () => {
+        // arrange
+        let gameboard = new Gameboard();
+        let ship = new Ship(3);
+        let ship2 = new Ship(2);
+        let ship3 = new Ship(4);
+        gameboard.placeShip(ship, [2, 2]); //[22][23][24]
+        gameboard.receiveAttack([2, 2]);
+        gameboard.receiveAttack([2, 3]);
+        gameboard.receiveAttack([2, 4]);
+        gameboard.placeShip(ship2, [5, 5], 1); //[55][65]
+        gameboard.receiveAttack([5, 5]);
+        gameboard.receiveAttack([6, 5]);
+        gameboard.placeShip(ship3, [3, 2]); //[32][33][34][35]
+        gameboard.receiveAttack([3, 2]);
+        gameboard.receiveAttack([3, 3]);
+        gameboard.receiveAttack([3, 5]);
+        // act
+        let sunk = gameboard.isAllSunk();
+        // assert
+        expect(sunk).toBeFalsy();
+    })
+    it("should return true if all three ships has been sunk", () => {
+        // arrange
+        let gameboard = new Gameboard();
+        let ship = new Ship(3);
+        let ship2 = new Ship(2);
+        let ship3 = new Ship(4);
+        gameboard.placeShip(ship, [2, 2]); //[22][23][24]
+        gameboard.receiveAttack([2, 2]);
+        gameboard.receiveAttack([2, 3]);
+        gameboard.receiveAttack([2, 4]);
+        gameboard.placeShip(ship2, [5, 5], 1); //[55][65]
+        gameboard.receiveAttack([5, 5]);
+        gameboard.receiveAttack([6, 5]);
+        gameboard.placeShip(ship3, [3, 2]); //[32][33][34][35]
+        gameboard.receiveAttack([3, 2]);
+        gameboard.receiveAttack([3, 3]);
+        gameboard.receiveAttack([3, 4]);
+        gameboard.receiveAttack([3, 5]);
+        // act
+        let sunk = gameboard.isAllSunk();
+        // assert
+        expect(sunk).toBeTruthy();
     })
 })
