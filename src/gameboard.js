@@ -41,11 +41,7 @@ function setCoords(ship, coord, verticality) {
     for (let i = 0; i < ship.length - 1; ++i) {
         let x = coord[coord.length - 1][0];
         let y = coord[coord.length - 1][1];
-        if (verticality) {
-            coord.push([x + 1, y]);
-        } else {
-            coord.push([x, y + 1]);
-        }
+        verticality ? coord.push([++x, y]) : coord.push([x, ++y]);
     }
 }
 
