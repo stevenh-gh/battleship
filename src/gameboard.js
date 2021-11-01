@@ -6,21 +6,11 @@ export default class Gameboard {
     placeShip(ship, pos, verticality = 0) {
         let coord = [pos];
         setCoords(ship, coord, verticality);
-        this.isSpotTaken(coord);
+        isSpotTaken(coord, this.ships);
         this.ships.push({
             ship,
             coord
         })
-    }
-    isSpotTaken(coord) {
-        coord.forEach(c => {
-            this.ships.forEach(shipinfo => {
-                let s_coord = shipinfo.coord;
-                if (s_coord.some(ele => (ele[0] === c[0]) && (ele[1] === c[1]))) {
-                    throw `this spot is taken: ${c}`;
-                }
-            });
-        });
     }
 
     receiveAttack(attack) {
@@ -38,10 +28,10 @@ export default class Gameboard {
         }
     }
     isAllSunk() {
-        let sunk;
+        let sunk = true;
         this.ships.forEach(shipinfo => {
             let ship = shipinfo.ship;
-            sunk = sunk || ship.isSunk();
+            sunk = sunk && ship.isSunk();
         })
         return sunk;
     }
@@ -57,4 +47,15 @@ function setCoords(ship, coord, verticality) {
             coord.push([x, y + 1]);
         }
     }
+}
+
+function isSpotTaken(coord, ships) {
+    coord.forEach(c => {
+        ships.forEach(shipinfo => {
+            let s_coord = shipinfo.coord;
+            if (s_coord.some(ele => (ele[0] === c[0]) && (ele[1] === c[1]))) {
+                throw `this spot is taken: ${c}`;
+            }
+        });
+    });
 }
