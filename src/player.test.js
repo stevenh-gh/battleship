@@ -175,4 +175,5 @@ describe("player", () => {
         expect(computer.prevAttacks.length).not.toEqual(0);
         expect(computer.prevAttacks[computer.prevAttacks.length - 1] instanceof Array).toBeTruthy();
     })
+    it.todo("should use random numbers")
 })
