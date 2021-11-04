@@ -14,7 +14,9 @@ export default class Player {
         } else if (this.isComputer === false) {
             throw "player must provide guess coordinates";
         } else {
-            this.prevAttacks.push([5, 5]);
+            let x = Math.floor(Math.random() * 10);
+            let y = Math.floor(Math.random() * 10);
+            this.prevAttacks.push([x, y]);
         }
     }
 }
