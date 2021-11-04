@@ -2,6 +2,13 @@ import Gameboard from "./gameboard";
 import Player from "./player";
 import Ship from "./ship";
 
+// beforeEach(() => {
+//     jest.spyOn(global.Math, "random").mockRejectedValue(0.123456789);
+// })
+// afterEach(() => {
+//     jest.spyOn(global.Math, "random").mockRestore();
+// })
+
 describe("player", () => {
     it("should be instance of player", () => {
         // arrange
@@ -173,7 +180,32 @@ describe("player", () => {
         computer.attack();
         // assert
         expect(computer.prevAttacks.length).not.toEqual(0);
-        expect(computer.prevAttacks[computer.prevAttacks.length - 1] instanceof Array).toBeTruthy();
+        computer.prevAttacks.forEach(ele => expect(ele instanceof Array).toBeTruthy());
     })
-    it.todo("should use random numbers")
+    it("should use random numbers", () => {
+        // arrange
+        let computer;
+        let enemyGameboard = new Gameboard();
+        let enemyShip1 = new Ship(2);
+        let enemyShip2 = new Ship(3);
+        let enemyShip3 = new Ship(4);
+        enemyGameboard.placeShip(enemyShip1, [1, 5]);
+        enemyGameboard.placeShip(enemyShip2, [2, 8], 1);
+        enemyGameboard.placeShip(enemyShip3, [5, 3]);
+        computer = new Player(enemyGameboard, true);
+        // act
+        for (let i = 0; i < 100; ++i) {
+            computer.attack();
+        }
+        // assert
+        computer.prevAttacks.forEach(ele => {
+            let x = ele[0];
+            let y = ele[1];
+            expect(x).toBeGreaterThanOrEqual(0);
+            expect(x).toBeLessThanOrEqual(9);
+            expect(y).toBeGreaterThanOrEqual(0);
+            expect(y).toBeLessThanOrEqual(9);
+            // console.log(ele);
+        });
+    })
 })
