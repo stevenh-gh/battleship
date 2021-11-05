@@ -182,7 +182,7 @@ describe("player", () => {
         expect(computer.prevAttacks.length).not.toEqual(0);
         computer.prevAttacks.forEach(ele => expect(ele instanceof Array).toBeTruthy());
     })
-    it("should use random numbers", () => {
+    it("if computer, attack() should use random numbers", () => {
         // arrange
         let computer;
         let enemyGameboard = new Gameboard();
@@ -205,7 +205,28 @@ describe("player", () => {
             expect(x).toBeLessThanOrEqual(9);
             expect(y).toBeGreaterThanOrEqual(0);
             expect(y).toBeLessThanOrEqual(9);
-            // console.log(ele);
         });
+    })
+    it("if computer, attack() should avoid previous guesses", () => {
+        // arrange
+        let computer;
+        let enemyGameboard = new Gameboard();
+        let enemyShip1 = new Ship(2);
+        let enemyShip2 = new Ship(3);
+        let enemyShip3 = new Ship(4);
+        enemyGameboard.placeShip(enemyShip1, [1, 5]);
+        enemyGameboard.placeShip(enemyShip2, [2, 8], 1);
+        enemyGameboard.placeShip(enemyShip3, [5, 3]);
+        computer = new Player(enemyGameboard, true);
+        // act
+        // assert
+        for (let i = 0; i < 100; ++i) {
+            computer.attack();
+            let lastEle = computer.prevAttacks.pop();
+            computer.prevAttacks.forEach(ele => {
+                expect(lastEle).not.toEqual(ele);
+            })
+            computer.prevAttacks.push(lastEle);
+        }
     })
 })
