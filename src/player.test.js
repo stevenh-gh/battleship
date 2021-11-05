@@ -229,4 +229,21 @@ describe("player", () => {
             computer.prevAttacks.push(lastEle);
         }
     })
+    it("if computer, can make an attack", () => {
+        // arrange
+        let computer;
+        let enemyGameboard = new Gameboard();
+        let enemyShip1 = new Ship(2);
+        let enemyShip2 = new Ship(3);
+        enemyGameboard.placeShip(enemyShip1, [1, 5]);
+        enemyGameboard.placeShip(enemyShip2, [2, 8], 1);
+        computer = new Player(enemyGameboard, true);
+        // act
+        computer.attack();
+        // assert
+        let pool = [];
+        pool = pool.concat(enemyGameboard.missed, enemyShip1.hits, enemyShip2.hits);
+        let atk = computer.prevAttacks[computer.prevAttacks.length - 1];
+        expect(pool).toEqual(expect.arrayContaining([atk]));
+    })
 })
