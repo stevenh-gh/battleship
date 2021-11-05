@@ -6,17 +6,34 @@ export default class Player {
     }
     attack(guess) {
         if (guess) {
-            if (this.prevAttacks.some(ele => (ele[0] === guess[0] && (ele[1] === guess[1])))) {
+            if (this.checkDuplicate(guess)) {
                 throw `${guess} has already been guessed!`
             }
-            this.prevAttacks.push(guess);
-            this.enemyGameboard.receiveAttack(guess);
+            this.makeAttack(guess);
         } else if (this.isComputer === false) {
             throw "player must provide guess coordinates";
         } else {
-            let x = Math.floor(Math.random() * 10);
-            let y = Math.floor(Math.random() * 10);
-            this.prevAttacks.push([x, y]);
+            let loop = true;
+            while (loop) {
+                let x = Math.floor(Math.random() * 10);
+                let y = Math.floor(Math.random() * 10);
+                let guess = [x, y];
+                if (this.checkDuplicate(guess)) {
+                    continue;
+                } else {
+                    this.makeAttack(guess);
+                    loop = false;
+                }
+            }
         }
+    }
+
+    makeAttack(guess) {
+        this.prevAttacks.push(guess);
+        this.enemyGameboard.receiveAttack(guess);
+    }
+
+    checkDuplicate(guess) {
+        return this.prevAttacks.some(ele => (ele[0] === guess[0] && (ele[1] === guess[1])));
     }
 }
