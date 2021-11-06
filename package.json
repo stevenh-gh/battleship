@@ -6,6 +6,7 @@
     "scripts": {
         "build": "webpack --mode=development",
         "watch": "webpack-dev-server --mode=development --config=webpack.config.js",
+        "push:subtree": "git subtree push --prefix dist origin gh-pages",
         "test": "jest --watch ./src/*.js"
     },
     "repository": {
