@@ -19,12 +19,16 @@ rotateBtn.addEventListener("click", () => {
 })
 
 let lengths = [5, 4, 3, 3, 2];
+let count = 0;
+placeShips.addEventListener("click", () => {
+    ++count;
+})
 placeShips.addEventListener("mouseover", e => {
     let coord = e.target.id.split("-").map(c => parseInt(c));
     placeShips.querySelectorAll("div").forEach(div => {
         div.classList.remove("bg-gray-400");
     })
-    for (let i = 0; i < lengths[0]; ++i) {
+    for (let i = 0; i < lengths[count]; ++i) {
         try {
             if (rotate) {
                 document.getElementById(`${coord[0]+i}-${coord[1]}`).classList.add("bg-gray-400");
