@@ -4,11 +4,11 @@ export default class Gameboard {
         this.missed = [];
     }
     placeShip(ship, pos, verticality = 0) {
-        if (pos[0] >= 10 || pos[1] >= 10) {
-            throw "invalid position";
-        }
         let coord = [pos];
         setCoords(ship, coord, verticality);
+        if (coord.some(e => e[0] >= 10 || e[1] >= 10)) {
+            throw "invalid position";
+        }
         isSpotTaken(coord, this.ships);
         this.ships.push({
             ship,
