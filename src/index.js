@@ -20,7 +20,19 @@ rotateBtn.addEventListener("click", () => {
 
 let lengths = [5, 4, 3, 3, 2];
 let count = 0;
-placeShips.addEventListener("click", () => {
+placeShips.addEventListener("click", e => {
+    let coord = e.target.id.split("-").map(c => parseInt(c));
+    for (let i = 0; i < lengths[count]; ++i) {
+        try {
+            if (rotate) {
+                document.getElementById(`${coord[0]+i}-${coord[1]}`).classList.add("bg-blue-300");
+            } else {
+                document.getElementById(`${coord[0]}-${coord[1]+i}`).classList.add("bg-blue-300");
+            }
+        } catch {
+            continue;
+        }
+    }
     ++count;
 })
 placeShips.addEventListener("mouseover", e => {
