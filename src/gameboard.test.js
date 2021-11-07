@@ -146,6 +146,26 @@ describe("placeShip", () => {
         // assert
         expect(() => gameboard.placeShip(new Ship(4), [5, 1])).toThrow(); // [5,1][5,2][5,3][5,4]
     })
+    it("should give an error when ship is placed in positions 10 or above", () => {
+        // arrange
+        const gameboard = new Gameboard();
+        const length = 3;
+        const ship = new Ship(length);
+        const coord = [4, 10];
+        // act
+        // assert
+        expect(() => gameboard.placeShip(ship, coord)).toThrow();
+    })
+    it("should give an error when ship is placed in positions 10 or above", () => {
+        // arrange
+        const gameboard = new Gameboard();
+        const length = 3;
+        const ship = new Ship(length);
+        const coord = [11, 3];
+        // act
+        // assert
+        expect(() => gameboard.placeShip(ship, coord)).toThrow();
+    })
 })
 describe("receiveAttack", () => {
     it("should receive coordinates and check if it matches a ship's coordinates, if miss, place it into missed list", () => {
