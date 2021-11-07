@@ -1,3 +1,5 @@
+import Gameboard from "./gameboard";
+import Ship from "./ship";
 import "./styles.css";
 
 let placeShips = document.querySelector("#place-ships");
@@ -20,6 +22,7 @@ rotateBtn.addEventListener("click", () => {
 
 let lengths = [5, 4, 3, 3, 2];
 let count = 0;
+let gameboard = new Gameboard();
 placeShips.addEventListener("click", e => {
     let coord = e.target.id.split("-").map(c => parseInt(c));
     for (let i = 0; i < lengths[count]; ++i) {
@@ -30,10 +33,16 @@ placeShips.addEventListener("click", e => {
                 document.getElementById(`${coord[0]}-${coord[1]+i}`).classList.add("bg-blue-300");
             }
         } catch {
-            continue;
+            alert("invalid position");
         }
     }
-    ++count;
+    try {
+        rotate ? gameboard.placeShip(new Ship(lengths[count]), coord, rotate) : gameboard.placeShip(new Ship(lengths[count]), coord);
+        console.log(gameboard);
+        ++count;
+    } catch {
+        alert("invalid position");
+    }
 })
 placeShips.addEventListener("mouseover", e => {
     let coord = e.target.id.split("-").map(c => parseInt(c));
