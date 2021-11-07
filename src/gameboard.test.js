@@ -46,7 +46,7 @@ describe("placeShip", () => {
             ])
         }));
     })
-    it("should calculate all the coordinates of the ship based on length", () => {
+    it("should calculate all the coordinates of the ship based on length (horizontal, left to right)", () => {
         // arrange
         const gameboard = new Gameboard();
         const length = 5;
@@ -77,7 +77,7 @@ describe("placeShip", () => {
         // assert
         expect(gameboard.ships[gameboard.ships.length - 1].coord.length).toBe(length);
     })
-    it("should have an optional parameter that indicates the ship's verticality", () => {
+    it("should have an optional parameter that indicates the ship's verticality (v=1 top to bottom)", () => {
         // arrange
         const gameboard = new Gameboard();
         const length = 3;
@@ -92,6 +92,46 @@ describe("placeShip", () => {
                 [4, 3],
                 [5, 3],
                 [6, 3]
+            ])
+        }));
+    })
+    it("should have the ship's horizontality v=2 be calculated from right to left", () => {
+        // arrange
+        const gameboard = new Gameboard();
+        const length = 5;
+        const ship = new Ship(length);
+        const coord = [1, 6];
+        // act
+        gameboard.placeShip(ship, coord, 2);
+        // assert
+        expect(gameboard.ships[gameboard.ships.length - 1]).toEqual(expect.objectContaining({
+            ship: { length: 5, hits: [] },
+            coord: expect.arrayContaining([
+                [1, 6],
+                [1, 5],
+                [1, 4],
+                [1, 3],
+                [1, 2],
+            ])
+        }));
+    })
+    it("should have the ship's verticality v=3 calculated from bottom to top", () => {
+        // arrange
+        const gameboard = new Gameboard();
+        const length = 5;
+        const ship = new Ship(length);
+        const coord = [8, 3];
+        // act
+        gameboard.placeShip(ship, coord, 3);
+        // assert
+        expect(gameboard.ships[gameboard.ships.length - 1]).toEqual(expect.objectContaining({
+            ship: { length: 5, hits: [] },
+            coord: expect.arrayContaining([
+                [8, 3],
+                [7, 3],
+                [6, 3],
+                [5, 3],
+                [4, 3],
             ])
         }));
     })
