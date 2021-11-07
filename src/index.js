@@ -11,6 +11,13 @@ for (let i = 0; i < 10; ++i) {
         placeShips.appendChild(div);
     }
 }
+
+let rotateBtn = document.querySelector('#rotate-btn');
+let rotate = 0;
+rotateBtn.addEventListener("click", () => {
+    rotate = rotate === 0 ? 1 : 0;
+})
+
 let lengths = [5, 4, 3, 3, 2];
 placeShips.addEventListener("mouseover", e => {
     let coord = e.target.id.split("-").map(c => parseInt(c));
@@ -19,7 +26,11 @@ placeShips.addEventListener("mouseover", e => {
     })
     for (let i = 0; i < lengths[0]; ++i) {
         try {
-            document.getElementById(`${coord[0]}-${coord[1]+i}`).classList.add("bg-gray-400");
+            if (rotate) {
+                document.getElementById(`${coord[0]+i}-${coord[1]}`).classList.add("bg-gray-400");
+            } else {
+                document.getElementById(`${coord[0]}-${coord[1]+i}`).classList.add("bg-gray-400");
+            }
         } catch {
             continue;
         }
