@@ -28,11 +28,9 @@ placeShips.addEventListener("mouseover", handleMouseOver)
 
 
 function placeShipsRmEvnt() {
-    if (count === 5) {
         placeShips.removeEventListener("click", handleClicks);
         placeShips.removeEventListener("mouseover", handleMouseOver);
     }
-}
 
 function handleMouseOver(e) {
     let coord = e.target.id.split("-").map(c => parseInt(c));
