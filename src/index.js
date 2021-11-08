@@ -65,7 +65,11 @@ function handleClicks(e) {
             }
         }
         ++count;
+        if (count === 5) {
         placeShipsRmEvnt();
+            document.getElementById("place-ships-div").classList.add("hidden");
+            document.getElementById("gameplay-div").classList.remove("hidden");
+        }
     } catch (e) {
         alert(e);
     }
