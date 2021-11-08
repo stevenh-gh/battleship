@@ -67,6 +67,25 @@ function handleClicks(e) {
         placeShipsRmEvnt();
             document.getElementById("place-ships-div").classList.add("hidden");
             document.getElementById("gameplay-div").classList.remove("hidden");
+            // to setup 2 gameboards:
+            // combine all the ships' coords into a single array
+            let playerShipsCoords = [];
+            gameboard.ships.forEach(ship => {
+                playerShipsCoords = playerShipsCoords.concat(ship.coord);
+            })
+
+            // and when constructing grid, if grid num matches a coord, color it
+            let playerGrid = document.getElementById("player-game-grid");
+            for (let i = 0; i < 10; ++i) {
+                for (let j = 0; j < 10; ++j) {
+                    let cell = document.createElement("div");
+                    cell.innerText = `${i},${j}`;
+                    if (playerShipsCoords.some(ele => ele[0] === i && ele[1] === j)) {
+                        cell.classList.add("bg-blue-500");
+                    }
+                    playerGrid.appendChild(cell);
+                }
+            }
         }
     } catch (e) {
         alert(e);
