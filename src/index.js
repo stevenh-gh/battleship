@@ -23,14 +23,15 @@ rotateBtn.addEventListener("click", () => {
 let lengths = [5, 4, 3, 3, 2];
 let count = 0;
 let gameboard = new Gameboard();
+let enemyGameboard = new Gameboard();
 placeShips.addEventListener("click", handleClicks)
 placeShips.addEventListener("mouseover", handleMouseOver)
 
 
 function placeShipsRmEvnt() {
-        placeShips.removeEventListener("click", handleClicks);
-        placeShips.removeEventListener("mouseover", handleMouseOver);
-    }
+    placeShips.removeEventListener("click", handleClicks);
+    placeShips.removeEventListener("mouseover", handleMouseOver);
+}
 
 function handleMouseOver(e) {
     let coord = e.target.id.split("-").map(c => parseInt(c));
@@ -64,7 +65,7 @@ function handleClicks(e) {
         }
         ++count;
         if (count === 5) {
-        placeShipsRmEvnt();
+            placeShipsRmEvnt();
             document.getElementById("place-ships-div").classList.add("hidden");
             document.getElementById("gameplay-div").classList.remove("hidden");
             // to setup 2 gameboards:
@@ -84,6 +85,25 @@ function handleClicks(e) {
                         cell.classList.add("bg-blue-500");
                     }
                     playerGrid.appendChild(cell);
+                }
+            }
+            // use random numbers to generate ships for enemy gameboard
+            // make ships in arr
+            let comShips = [new Ship(5), new Ship(4), new Ship(3), new Ship(3), new Ship(2)];
+            let comShipsCount = 0;
+            while (comShipsCount < comShips.length) {
+                // generate random nums for x,y
+                let x = Math.floor(Math.random() * 10);
+                let y = Math.floor(Math.random() * 10);
+                let v = Math.floor(Math.random() * 2);
+                let coord = [x, y];
+                // placeships with try/catch
+                try {
+                    enemyGameboard.placeShip(comShips[comShipsCount], coord, v);
+                    // increment
+                    ++comShipsCount;
+                } catch {
+                    continue;
                 }
             }
         }
