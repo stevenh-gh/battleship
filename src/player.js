@@ -5,13 +5,15 @@ export default class Player {
         this.prevAttacks = [];
     }
     attack(guess) {
+        let hit;
         if (guess) {
-            this.ifPlayer(guess);
+            hit = this.ifPlayer(guess);
         } else if (this.isComputer === false) {
             throw "player must provide guess coordinates";
         } else {
-            this.ifComputer();
+            hit = this.ifComputer();
         }
+        return hit;
     }
     ifComputer() {
         let loop = true;
@@ -22,8 +24,8 @@ export default class Player {
             if (this.checkDuplicate(guess)) {
                 continue;
             } else {
-                this.makeAttack(guess);
                 loop = false;
+                return [this.makeAttack(guess), guess];
             }
         }
     }
@@ -32,12 +34,12 @@ export default class Player {
         if (this.checkDuplicate(guess)) {
             throw `${guess} has already been guessed!`;
         }
-        this.makeAttack(guess);
+        return this.makeAttack(guess);
     }
 
     makeAttack(guess) {
         this.prevAttacks.push(guess);
-        this.enemyGameboard.receiveAttack(guess);
+        return this.enemyGameboard.receiveAttack(guess);
     }
 
     checkDuplicate(guess) {
