@@ -128,6 +128,11 @@ function handleClicks(e) {
                 let id = e.target.id.split("-");
                 let atk = [id[1], id[2]].map(c => parseInt(c));
                 // console.log(player.attack(atk));
+                if (player.attack(atk)) {
+                    document.getElementById(e.target.id).classList.add("bg-red-400");
+                } else {
+                    document.getElementById(e.target.id).classList.add("bg-gray-400");
+                }
             })
         }
     } catch (e) {
