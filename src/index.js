@@ -118,7 +118,7 @@ function handleClicks(e) {
                     cell.innerText = `${i},${j}`;
                     cell.id = `eg-${i}-${j}`;
                     comGameGrid.appendChild(cell);
-            }
+                }
             }
             // -------gameplay loop---------
             let player = new Player(enemyGameboard);
@@ -133,6 +133,15 @@ function handleClicks(e) {
                 } else {
                     document.getElementById(e.target.id).classList.add("bg-gray-400");
                 }
+                let cAtk = computer.attack();
+                let cAtkCoord = cAtk[1];
+                if (cAtk[0]) {
+                    document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.remove("bg-blue-500");
+                    document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.add("bg-red-400");
+                } else {
+                    document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.add("bg-gray-400");
+                }
+                console.log(enemyGameboard.isAllSunk() || gameboard.isAllSunk());
             })
         }
     } catch (e) {
