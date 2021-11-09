@@ -264,6 +264,36 @@ describe("receiveAttack", () => {
         // assert
         expect(ship2.hits).toEqual(expect.arrayContaining(expected));
     })
+    it("should true if hit", () => {
+        // arrange
+        const attack = [4, 3];
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(2);
+        const ship2 = new Ship(2);
+        const ship3 = new Ship(4);
+        gameboard.placeShip(ship1, [5, 2]); //[52][53]
+        gameboard.placeShip(ship2, [3, 3], 1); //[33][43][53]
+        gameboard.placeShip(ship3, [5, 1], 1); //[51][61][71][81]
+        // act
+        let hit = gameboard.receiveAttack(attack);
+        // assert
+        expect(hit).toBeTruthy();
+    })
+    it("should false if miss", () => {
+        // arrange
+        const attack = [5, 4];
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(2);
+        const ship2 = new Ship(2);
+        const ship3 = new Ship(4);
+        gameboard.placeShip(ship1, [5, 2]); //[52][53]
+        gameboard.placeShip(ship2, [3, 3], 1); //[33][43][53]
+        gameboard.placeShip(ship3, [5, 1], 1); //[51][61][71][81]
+        // act
+        let hit = gameboard.receiveAttack(attack);
+        // assert
+        expect(hit).toBeFalsy();
+    })
 })
 describe("isAllSunk", () => {
     it("should return true if the only ship sinks", () => {
