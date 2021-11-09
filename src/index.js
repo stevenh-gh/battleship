@@ -120,6 +120,15 @@ function handleClicks(e) {
                     comGameGrid.appendChild(cell);
             }
             }
+            // -------gameplay loop---------
+            let player = new Player(enemyGameboard);
+            let computer = new Player(gameboard, true);
+            // -----------------------------
+            comGameGrid.addEventListener("click", e => {
+                let id = e.target.id.split("-");
+                let atk = [id[1], id[2]].map(c => parseInt(c));
+                // console.log(player.attack(atk));
+            })
         }
     } catch (e) {
         alert(e);
