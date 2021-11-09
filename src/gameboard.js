@@ -29,6 +29,7 @@ export default class Gameboard {
         if (missed) {
             this.missed.push(attack);
         }
+        return !missed;
     }
     isAllSunk() {
         let sunk = true;
