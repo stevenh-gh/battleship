@@ -1,4 +1,5 @@
 import Gameboard from "./gameboard";
+import Player from "./player";
 import Ship from "./ship";
 import "./styles.css";
 
@@ -81,6 +82,7 @@ function handleClicks(e) {
                 for (let j = 0; j < 10; ++j) {
                     let cell = document.createElement("div");
                     cell.innerText = `${i},${j}`;
+                    cell.id = `gg-${i}-${j}`;
                     if (playerShipsCoords.some(ele => ele[0] === i && ele[1] === j)) {
                         cell.classList.add("bg-blue-500");
                     }
@@ -105,6 +107,18 @@ function handleClicks(e) {
                 } catch {
                     continue;
                 }
+                console.log("enemy");
+                console.log(enemyGameboard);
+            }
+            // draw enemy board
+            let comGameGrid = document.getElementById("com-game-grid");
+            for (let i = 0; i < 10; ++i) {
+                for (let j = 0; j < 10; ++j) {
+                    let cell = document.createElement("div");
+                    cell.innerText = `${i},${j}`;
+                    cell.id = `eg-${i}-${j}`;
+                    comGameGrid.appendChild(cell);
+            }
             }
         }
     } catch (e) {
