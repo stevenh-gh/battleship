@@ -115,12 +115,15 @@ function gameStart() {
     // -----------------------------
     let doComGameGridClick = e => handleComGameGridClick(e, player, computer);
     comGameGrid.addEventListener("click", doComGameGridClick);
+    let doComGameCheckWin = () => checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin);
+    comGameGrid.addEventListener("click", doComGameCheckWin);
 }
 
-function checkWin(comGameGrid, doComGameGridClick) {
+function checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin) {
     if (enemyGameboard.isAllSunk() || gameboard.isAllSunk()) {
         enemyGameboard.isAllSunk() ? alert("player wins!") : alert("computer wins!");
         comGameGrid.removeEventListener("click", doComGameGridClick);
+        comGameGrid.removeEventListener("click", doComGameCheckWin);
     }
 }
 
