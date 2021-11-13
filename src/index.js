@@ -68,8 +68,10 @@ function handleClicks(e) {
         if (count === 5) {
             gameStart();
         }
-    } catch (e) {
-        alert(e);
+    } catch (error) {
+        if (error.message !== "Cannot read properties of null (reading 'classList')") {
+            alert(error);
+        }
     }
 }
 
@@ -166,20 +168,22 @@ function drawEnemyBoard() {
 }
 
 function handleComGameGridClick(e, player, computer) {
-    let id = e.target.id.split("-");
-    let atk = [id[1], id[2]].map(c => parseInt(c));
-    // console.log(player.attack(atk));
-    if (player.attack(atk)) {
-        document.getElementById(e.target.id).classList.add("bg-red-400");
-    } else {
-        document.getElementById(e.target.id).classList.add("bg-gray-400");
-    }
-    let cAtk = computer.attack();
-    let cAtkCoord = cAtk[1];
-    if (cAtk[0]) {
-        document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.remove("bg-blue-500");
-        document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.add("bg-red-400");
-    } else {
-        document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.add("bg-gray-400");
+    if (e.target.id !== "com-game-grid") {
+        let id = e.target.id.split("-");
+        let atk = [id[1], id[2]].map(c => parseInt(c));
+        // console.log(player.attack(atk));
+        if (player.attack(atk)) {
+            document.getElementById(e.target.id).classList.add("bg-red-400");
+        } else {
+            document.getElementById(e.target.id).classList.add("bg-gray-400");
+        }
+        let cAtk = computer.attack();
+        let cAtkCoord = cAtk[1];
+        if (cAtk[0]) {
+            document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.remove("bg-blue-500");
+            document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.add("bg-red-400");
+        } else {
+            document.getElementById(`gg-${cAtkCoord[0]}-${cAtkCoord[1]}`).classList.add("bg-gray-400");
+        }
     }
 }
