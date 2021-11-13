@@ -56,7 +56,7 @@ function handleClicks(e) {
     let coord = e.target.id.split("-").map(c => parseInt(c));
     try {
         rotate ? gameboard.placeShip(new Ship(lengths[count]), coord, rotate) : gameboard.placeShip(new Ship(lengths[count]), coord);
-        console.log(gameboard);
+        // console.log(gameboard);
         for (let i = 0; i < lengths[count]; ++i) {
             if (rotate) {
                 document.getElementById(`${coord[0] + i}-${coord[1]}`).classList.add("bg-blue-300");
@@ -118,14 +118,16 @@ function generateComputerShips() {
         } catch {
             continue;
         }
-        console.log("enemy");
-        console.log(enemyGameboard);
+        // console.log("enemy");
+        // console.log(enemyGameboard);
     }
 }
 
 function checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin) {
     if (enemyGameboard.isAllSunk() || gameboard.isAllSunk()) {
-        enemyGameboard.isAllSunk() ? alert("player wins!") : alert("computer wins!");
+        let winner = document.getElementById("winner");
+        enemyGameboard.isAllSunk() ? winner.innerText = "player wins!" : winner.innerText = "computer wins!";
+        winner.classList.remove("hidden");
         comGameGrid.removeEventListener("click", doComGameGridClick);
         comGameGrid.removeEventListener("click", doComGameCheckWin);
     }
