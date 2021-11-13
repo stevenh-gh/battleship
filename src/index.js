@@ -86,6 +86,20 @@ function gameStart() {
 
     // and when constructing grid, if grid num matches a coord, color it
     drawPlayerBoard(playerShipsCoords);
+    generateComputerShips();
+    // draw enemy board
+    let comGameGrid = drawEnemyBoard();
+    // -------gameplay loop---------
+    let player = new Player(enemyGameboard);
+    let computer = new Player(gameboard, true);
+    // -----------------------------
+    let doComGameGridClick = e => handleComGameGridClick(e, player, computer);
+    comGameGrid.addEventListener("click", doComGameGridClick);
+    let doComGameCheckWin = () => checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin);
+    comGameGrid.addEventListener("click", doComGameCheckWin);
+}
+
+function generateComputerShips() {
     // use random numbers to generate ships for enemy gameboard
     // make ships in arr
     let comShips = [new Ship(5), new Ship(4), new Ship(3), new Ship(3), new Ship(2)];
@@ -107,16 +121,6 @@ function gameStart() {
         console.log("enemy");
         console.log(enemyGameboard);
     }
-    // draw enemy board
-    let comGameGrid = drawEnemyBoard();
-    // -------gameplay loop---------
-    let player = new Player(enemyGameboard);
-    let computer = new Player(gameboard, true);
-    // -----------------------------
-    let doComGameGridClick = e => handleComGameGridClick(e, player, computer);
-    comGameGrid.addEventListener("click", doComGameGridClick);
-    let doComGameCheckWin = () => checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin);
-    comGameGrid.addEventListener("click", doComGameCheckWin);
 }
 
 function checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin) {
