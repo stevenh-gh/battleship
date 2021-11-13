@@ -8,7 +8,7 @@ for (let i = 0; i < 10; ++i) {
     for (let j = 0; j < 10; ++j) {
         let div = document.createElement("div");
         div.classList.add(...
-            "border border-black".split(" "));
+            "border border-black text-xl rounded-md p-1.5 text-white".split(" "));
         div.innerText = `${i},${j}`;
         div.id = `${i}-${j}`
         placeShips.appendChild(div);
@@ -126,7 +126,7 @@ function generateComputerShips() {
 function checkWin(comGameGrid, doComGameGridClick, doComGameCheckWin) {
     if (enemyGameboard.isAllSunk() || gameboard.isAllSunk()) {
         let winner = document.getElementById("winner");
-        enemyGameboard.isAllSunk() ? winner.innerText = "player wins!" : winner.innerText = "computer wins!";
+        enemyGameboard.isAllSunk() ? winner.innerText = "Player wins!" : winner.innerText = "Computer wins!";
         winner.classList.remove("hidden");
         comGameGrid.removeEventListener("click", doComGameGridClick);
         comGameGrid.removeEventListener("click", doComGameCheckWin);
@@ -138,6 +138,8 @@ function drawPlayerBoard(playerShipsCoords) {
     for (let i = 0; i < 10; ++i) {
         for (let j = 0; j < 10; ++j) {
             let cell = document.createElement("div");
+            cell.classList.add(...
+                "border border-black text-xl rounded-md p-1.5 text-white".split(" "));
             cell.innerText = `${i},${j}`;
             cell.id = `gg-${i}-${j}`;
             if (playerShipsCoords.some(ele => ele[0] === i && ele[1] === j)) {
@@ -153,6 +155,8 @@ function drawEnemyBoard() {
     for (let i = 0; i < 10; ++i) {
         for (let j = 0; j < 10; ++j) {
             let cell = document.createElement("div");
+            cell.classList.add(...
+                "border border-black text-xl rounded-md p-1.5 text-white".split(" "));
             cell.innerText = `${i},${j}`;
             cell.id = `eg-${i}-${j}`;
             comGameGrid.appendChild(cell);
